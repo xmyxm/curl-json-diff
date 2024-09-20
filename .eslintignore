@@ -2,3 +2,4 @@ lib/
 util/
 dist/
 node_modules/
+tsconfig.json

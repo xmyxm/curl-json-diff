@@ -2,10 +2,13 @@
 	"compilerOptions": {
 		"module": "esnext", // 浏览器端打包工具通常处理 ES6+ 模块
 		"target": "es5", // 针对旧版浏览器的兼容性
-		"outDir": "../../dist/", // 指定输出目录
+		"outDir": "./dist/", // 指定输出目录
 		"baseUrl": "./",
 		/* 基本选项 */
-		"lib": ["dom", "es2017"], // 用于指定编译过程中要包含的库文件。这些库文件是TypeScript提供的一组声明文件，用于描述JavaScript运行环境的API。这允许TypeScript知道某些全局变量或全局类型的存在，从而在不实际执行代码的情况下进行类型检查，"dom"：包含了浏览器环境中的所有DOM（文档对象模型）的类型定义，如 document 或 window。"es6"：包含了ECMAScript 2015（也称为ES6）的类型定义，如 Promise, Set, Map 等。"node"：为Node.js环境提供类型定义。
+		"lib": [
+			"dom",
+			"es2017"
+		], // 用于指定编译过程中要包含的库文件。这些库文件是TypeScript提供的一组声明文件，用于描述JavaScript运行环境的API。这允许TypeScript知道某些全局变量或全局类型的存在，从而在不实际执行代码的情况下进行类型检查，"dom"：包含了浏览器环境中的所有DOM（文档对象模型）的类型定义，如 document 或 window。"es6"：包含了ECMAScript 2015（也称为ES6）的类型定义，如 Promise, Set, Map 等。"node"：为Node.js环境提供类型定义。
 		"checkJs": true, // 报告 javascript 文件中的错误, 必须配合allowJs使用
 		"jsx": "react-jsx", // "react": 将 JSX 转换为 React.createElement 调用，适用于 React 16 及之前的版本。"react-jsx": 使用新的 JSX 转换，适用于 React 17 及之后的版本，不需要导入 React。"react-jsxdev": 在开发模式下使用新的 JSX 转换，它包含额外的调试信息。"preserve": 保留 JSX 语法，后续可以通过 Babel 等工具进行转换
 		"declaration": true, // 生成相应的 '.d.ts' 文件
@@ -43,6 +46,10 @@
 		"dist",
 		"node_modules"
 	],
-	"include": ["./src/**/*.ts", "./src/**/*.tsx", "./global.d.ts"], // 指定客户端代码的位置
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
+		"./global.d.ts"
+	], // 指定客户端代码的位置
 	"compileOnSave": true // 让IDE在保存文件的时候根据tsconfig.json重新生成文件
 }
