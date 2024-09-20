@@ -4,6 +4,7 @@ const getTime = require('./util/util')
 const printLog = require('./util/printLog')
 const curlParser = require('curl-parser-js')
 const fetchCURL = require('./util/fetchCURL')
+const clearDirectory = require('./util/clearDirectory')
 const readFileInfoList = require('./util/readFileInfoList')
 
 // 指定目录路径
@@ -33,10 +34,10 @@ fileInfoList.forEach(item => {
 
 Promise.all(promiseList).then(() => {
 	const scanPath = path.join(__dirname, '../scandata')
-	// 同步删除文件夹
-	fs.rmdirSync(scanPath)
-	// 同步新建文件夹
-	fs.mkdirSync(scanPath)
+	// 同步清空文件夹
+	clearDirectory(scanPath)
+	let passAPI = 0
+	let noPassAPI = 0
 	fileInfoList.forEach(({ url, curlName, responsePRO, responseRC }) => {
 		if (responsePRO !== responseRC) {
 			printLog.warn(`${getTime()} ${url} 请求PRO与RC环境返回数据不一致`)
@@ -46,8 +47,17 @@ Promise.all(promiseList).then(() => {
 			contents.forEach(content => {
 				fs.appendFileSync(filePath, content + '\n') // 换行写入每段内容
 			})
+			noPassAPI += 1
 		} else {
-			printLog.info(`${getTime()} ${url} 请求测试通过`)
+			// printLog.info(`${getTime()} ${url} 请求测试通过`)
+			passAPI += 1
 		}
 	})
+	printLog.info(`本次测试共 ${fileInfoList.length} 个API`)
+	if (passAPI) {
+		printLog.info(`本次测试通过 ${passAPI} 个API`)
+	}
+	if (noPassAPI) {
+		printLog.error(`本次测试未通过 ${noPassAPI} 个API`)
+	}
 })
