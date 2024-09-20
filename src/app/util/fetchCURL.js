@@ -3,7 +3,7 @@ const axios = require('axios')
 function fetchCURL(method, url, headers, body) {
 	// 使用 axios 发出请求
 	return axios({
-		method: method || 'get', // 默认为 GET 请求
+		method: (method || 'get').toLocaleLowerCase(), // 默认为 GET 请求
 		url: url,
 		headers: headers,
 		data: body,

@@ -1,8 +1,8 @@
 const fs = require('fs')
 const path = require('path')
+const parse = require('@bany/curl-to-json')
 const getTime = require('./util/util')
 const printLog = require('./util/printLog')
-const curlParser = require('curl-parser-js')
 const fetchCURL = require('./util/fetchCURL')
 const clearDirectory = require('./util/clearDirectory')
 const readFileInfoList = require('./util/readFileInfoList')
@@ -13,20 +13,19 @@ const fileInfoList = readFileInfoList(directoryPath)
 const promiseList = []
 fileInfoList.forEach(item => {
 	const { content } = item
-	const parsedObject = curlParser.parse(content)
 	// 从解析对象中获取 URL 和请求头部
-	const { url, method, headers, body } = parsedObject
+	const { url, header, params, method } = parse(content)
 	item.url = url
 	promiseList.push(
-		fetchCURL(method, url, headers, body).then(data => {
+		fetchCURL(method, url, header, params).then(data => {
 			item.responseRC = JSON.stringify(data)
 		}),
 	)
-	if (headers['pragma-env']) {
-		delete headers['pragma-env']
+	if (header['pragma-env']) {
+		delete header['pragma-env']
 	}
 	promiseList.push(
-		fetchCURL(method, url, headers, body).then(data => {
+		fetchCURL(method, url, header, params).then(data => {
 			item.responsePRO = JSON.stringify(data)
 		}),
 	)
