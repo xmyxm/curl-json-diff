@@ -1,0 +1,51 @@
+{
+	"name": "curl-json-diff",
+	"version": "0.0.1",
+	"description": "web",
+	"main": "index.js",
+	"scripts": {
+		"dev": "node app.js",
+		"lint": "eslint src --fix --ext .ts --ext .tsx",
+		"write": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+		"prepare": "husky install"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged",
+			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+		}
+	},
+	"lint-staged": {
+		"*.{js,css,less,ts,tsx,md}": "prettier --write"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:xmyxm/curl-json-diff.git"
+	},
+	"keywords": [
+		"eslint"
+	],
+	"author": "xmyxm",
+	"license": "ISC",
+	"devDependencies": {
+		"@commitlint/cli": "^16.2.1",
+		"@commitlint/config-conventional": "^16.2.1",
+		"core-js": "^3.11.1",
+		"css-loader": "^7.1.1",
+		"eslint": "^8.57.0",
+		"eslint-config-airbnb-base": "^15.0.0",
+		"eslint-config-prettier": "^8.4.0",
+		"eslint-import-resolver-webpack": "^0.13.2",
+		"eslint-plugin-html": "^6.2.0",
+		"eslint-plugin-import": "^2.25.4",
+		"eslint-plugin-markdown": "^5.0.0",
+		"eslint-plugin-prettier": "^4.0.0",
+		"eslint-plugin-react": "^7.28.0",
+		"husky": "^7.0.4",
+		"lint-staged": "^12.3.4",
+		"prettier": "^2.2.1"
+	},
+	"dependencies": {
+		"axios": "^1.7.7"
+	}
+}
