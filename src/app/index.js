@@ -21,7 +21,7 @@ fileInfoList.forEach(item => {
 			item.responseRC = JSON.stringify(data)
 		}),
 	)
-	if (header['pragma-env']) {
+	if (header && header['pragma-env']) {
 		delete header['pragma-env']
 	}
 	promiseList.push(
@@ -44,7 +44,7 @@ Promise.all(promiseList).then(() => {
 			const filePath = path.join(scanPath, curlName)
 			fs.writeFileSync(filePath, '') // 创建一个空文件
 			contents.forEach(content => {
-				fs.appendFileSync(filePath, content + '\n') // 换行写入每段内容
+				fs.appendFileSync(filePath, `${content}\n`) // 换行写入每段内容
 			})
 			noPassAPI += 1
 		} else {

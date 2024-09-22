@@ -5,8 +5,8 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "node ./src/app/index.js",
-		"lint": "eslint src --fix --ext .ts --ext .tsx",
-		"write": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+		"lint": "eslint src --fix --ext .js",
+		"write": "prettier --write \"src/**/*.{js,ts}\"",
 		"prepare": "husky install"
 	},
 	"husky": {

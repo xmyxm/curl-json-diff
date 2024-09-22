@@ -15,7 +15,6 @@ module.exports = {
 	extends: [
 		'airbnb-base',
 		'eslint:recommended', // 这是一个ESLint插件，包含了各类定义好的检测Typescript代码的规范
-		'plugin:react/recommended',
 		'prettier', // 使用 eslint-config-prettier 将所有与 Prettier 冲突的 ESLint 规则禁用掉。这样,Prettier 就可以完全控制代码格式化的样式,而不会与 ESLint 产生冲突
 		'plugin:prettier/recommended', // 表示使用 eslint-plugin-prettier 插件提供的推荐规则集
 	],
@@ -33,7 +32,6 @@ module.exports = {
 	// 通常输出规则。一些插件也可以输出一个或多个命名的配置。ESLint 支持使用第三方插件。在使用插件之前，你必须使用 npm 安装它。插件名称可以省略 eslint-plugin- 前缀
 	plugins: [
 		'prettier', // 启用 eslint-plugin-prettier 插件，,它将 Prettier 作为一个 ESLint 规则来运行，它并不会禁用任何 ESLint 规则,而是在代码格式化方面使用 Prettier 的规则。
-		'react',
 		'html',
 		'markdown', // eslint-plugin-markdown 可以检查 Markdown、 HTML以及其它语言文件中的代码
 	],
@@ -45,7 +43,7 @@ module.exports = {
 	],
 	// 开启规则和发生错误时报告的等级
 	rules: {
-		'react/react-in-jsx-scope': 'off',
+		'no-param-reassign': 'off',
 		'no-use-before-define': 'off',
 		'no-plusplus': 'off',
 		'no-alert': 'off',
