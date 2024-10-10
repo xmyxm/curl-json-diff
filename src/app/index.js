@@ -16,17 +16,17 @@ fileInfoList.forEach(item => {
 	const { content } = item
 	// 从解析对象中获取 URL 和请求头部
 	const { url, header, params, method } = parse(content)
+	item.url = url
 	promiseList.push(
 		fetchCURL(method, url, header, params).then(data => {
 			item.responsePRO = JSON.stringify(data)
-			item.url = url
 		}),
 	)
 	const { rcURL, rcHeader } = getRC(url, header)
+	item.rcURL = rcURL
 	promiseList.push(
 		fetchCURL(method, rcURL, rcHeader, params).then(data => {
 			item.responseRC = JSON.stringify(data)
-			item.url = rcURL
 		}),
 	)
 })
@@ -37,7 +37,7 @@ Promise.all(promiseList).then(() => {
 	clearDirectory(scanPath)
 	let passAPI = 0
 	let noPassAPI = 0
-	fileInfoList.forEach(({ url, curlName, responsePRO, responseRC }) => {
+	fileInfoList.forEach(({ url, rcURL, curlName, responsePRO, responseRC }) => {
 		if (responsePRO !== responseRC) {
 			printLog.warn(`${getTime()} ${url} 请求PRO与RC环境返回数据不一致`)
 			const contents = [url, 'PRO:', responsePRO, 'RC:', responseRC]
@@ -51,7 +51,7 @@ Promise.all(promiseList).then(() => {
 			// printLog.info(`${getTime()} ${url} 请求测试通过`)
 			passAPI += 1
 		}
-		console.log(`url: ${url}\nRC: ${responseRC}\n\n`) // \nPRO: ${responsePRO}
+		console.log(`\nrcURL: ${rcURL}\nRC: ${responseRC}\n\n`) // \nPRO: ${responsePRO}
 	})
 	printLog.info(`本次测试共 ${fileInfoList.length} 个API`)
 	if (passAPI) {
