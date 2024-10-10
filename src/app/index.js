@@ -2,31 +2,31 @@ const fs = require('fs')
 const path = require('path')
 const parse = require('@bany/curl-to-json')
 const getTime = require('./util/util')
+const getRC = require('./util/getRC')
 const printLog = require('./util/printLog')
 const fetchCURL = require('./util/fetchCURL')
 const clearDirectory = require('./util/clearDirectory')
 const readFileInfoList = require('./util/readFileInfoList')
 
 // 指定目录路径
-const directoryPath = path.join(__dirname, '../webfile')
+const directoryPath = path.join(__dirname, '../webfile/API20241010/')
 const fileInfoList = readFileInfoList(directoryPath)
 const promiseList = []
 fileInfoList.forEach(item => {
 	const { content } = item
 	// 从解析对象中获取 URL 和请求头部
 	const { url, header, params, method } = parse(content)
-	item.url = url
-	promiseList.push(
-		fetchCURL(method, url, header, params).then(data => {
-			item.responseRC = JSON.stringify(data)
-		}),
-	)
-	if (header && header['pragma-env']) {
-		delete header['pragma-env']
-	}
 	promiseList.push(
 		fetchCURL(method, url, header, params).then(data => {
 			item.responsePRO = JSON.stringify(data)
+			item.url = url
+		}),
+	)
+	const { rcURL, rcHeader } = getRC(url, header)
+	promiseList.push(
+		fetchCURL(method, rcURL, rcHeader, params).then(data => {
+			item.responseRC = JSON.stringify(data)
+			item.url = rcURL
 		}),
 	)
 })
@@ -51,6 +51,7 @@ Promise.all(promiseList).then(() => {
 			// printLog.info(`${getTime()} ${url} 请求测试通过`)
 			passAPI += 1
 		}
+		console.log(`url: ${url}\nRC: ${responseRC}\n\n`) // \nPRO: ${responsePRO}
 	})
 	printLog.info(`本次测试共 ${fileInfoList.length} 个API`)
 	if (passAPI) {
