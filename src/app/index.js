@@ -9,7 +9,7 @@ const clearDirectory = require('./util/clearDirectory')
 const readFileInfoList = require('./util/readFileInfoList')
 
 // 指定目录路径
-const directoryPath = path.join(__dirname, '../webfile/API20241010/')
+const directoryPath = path.join(__dirname, '../webfile/API20241016/')
 const fileInfoList = readFileInfoList(directoryPath)
 const promiseList = []
 fileInfoList.forEach(item => {
@@ -51,7 +51,8 @@ Promise.all(promiseList).then(() => {
 			// printLog.info(`${getTime()} ${url} 请求测试通过`)
 			passAPI += 1
 		}
-		console.log(`\nrcURL: ${rcURL}\nRC: ${responseRC}\n\n`) // \nPRO: ${responsePRO}
+		printLog.info(`\nURL: ${url}\nPRO: ${responsePRO}\n\n`)
+		printLog.warn(`\nrcURL: ${rcURL}\nRC: ${responseRC}\n\n`)
 	})
 	printLog.info(`本次测试共 ${fileInfoList.length} 个API`)
 	if (passAPI) {
