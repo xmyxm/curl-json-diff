@@ -16,7 +16,11 @@ const promiseList = []
 fileInfoList.forEach(item => {
 	const { content } = item
 	// 从解析对象中获取 URL 和请求头部
-	const { url, header, params, method } = parse(content)
+	let { url, header, params, method } = parse(content)
+	if (method === 'GET') {
+		const urlParams = new URLSearchParams(params)
+		url = `${url}?${urlParams.toString()}`
+	}
 	item.url = url
 	promiseList.push(
 		fetchCURL(method, url, header, params).then(data => {
@@ -40,6 +44,8 @@ Promise.all(promiseList).then(() => {
 	let noPassAPI = 0
 	let noPassAPIList = []
 	fileInfoList.forEach(({ url, rcURL, curlName, responsePRO, responseRC }) => {
+		printLog.info(`\nURL: ${url}\nPRO: ${responsePRO}\n\n`)
+		printLog.warn(`\nrcURL: ${rcURL}\nRC: ${responseRC}\n\n`)
 		if (responsePRO !== responseRC) {
 			printLog.warn(`${getTime()} ${url} 请求PRO与RC环境返回数据不一致`)
 			const contents = [url, 'PRO:', responsePRO, 'RC:', responseRC]
@@ -54,8 +60,6 @@ Promise.all(promiseList).then(() => {
 			// printLog.info(`${getTime()} ${url} 请求测试通过`)
 			passAPI += 1
 		}
-		printLog.info(`\nURL: ${url}\nPRO: ${responsePRO}\n\n`)
-		printLog.warn(`\nrcURL: ${rcURL}\nRC: ${responseRC}\n\n`)
 	})
 	printLog.info(`本次测试共 ${fileInfoList.length} 个API`)
 	if (passAPI) {
@@ -65,6 +69,6 @@ Promise.all(promiseList).then(() => {
 		printLog.error(`本次测试未通过 ${noPassAPI} 个API`)
 	}
 	if (noPassAPIList.length) {
-		noPassAPIList.forEach((urltext, index) => printLog.warn(`\r ${index + 1}. url: ${urltext}`))
+		noPassAPIList.forEach((urltext, index) => printLog.warn(`\r ${index + 1}. url: ${urltext.replace(/\?.*$/, '')}`))
 	}
 })
