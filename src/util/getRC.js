@@ -1,4 +1,5 @@
 const useIP = false
+const useNewUrl = true
 
 function getRC(url, header = {}) {
     let rcURL = useIP ? '' : url
@@ -20,6 +21,15 @@ function getRC(url, header = {}) {
     if (headerObj['swimlane']) {
         delete headerObj['swimlane']
     }
+
+    if (useNewUrl) {
+        rcURL = url.replace('/mapi/base/unify/shop.bin', '/mapi/wechat/weshop.bin')
+        // rcURL = 'http://10.73.169.165:8080/mapi/wechat/weshop.bin'
+        // if (headerObj['mtgsig']) {
+        //     delete headerObj['mtgsig']
+        // }
+    }
+
     return {
         rcURL,
         rcHeader: headerObj

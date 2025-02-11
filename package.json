@@ -4,7 +4,7 @@
 	"description": "web",
 	"main": "index.js",
 	"scripts": {
-		"start": "node ./src/app/index.js",
+		"start": "node ./src/index.js",
 		"lint": "eslint src --fix --ext .js",
 		"write": "prettier --write \"src/**/*.{js,ts}\"",
 		"prepare": "husky install"
