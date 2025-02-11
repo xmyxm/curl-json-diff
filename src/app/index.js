@@ -9,7 +9,7 @@ const clearDirectory = require('./util/clearDirectory')
 const readFileInfoList = require('./util/readFileInfoList')
 
 // 指定目录路径
-const directoryPath = path.join(__dirname, '../webfile/API20241016/')
+const directoryPath = path.join(__dirname, '../webfile/API20241209/')
 const fileInfoList = readFileInfoList(directoryPath)
 const promiseList = []
 fileInfoList.forEach(item => {
@@ -37,6 +37,7 @@ Promise.all(promiseList).then(() => {
 	clearDirectory(scanPath)
 	let passAPI = 0
 	let noPassAPI = 0
+	let noPassAPIList = []
 	fileInfoList.forEach(({ url, rcURL, curlName, responsePRO, responseRC }) => {
 		if (responsePRO !== responseRC) {
 			printLog.warn(`${getTime()} ${url} 请求PRO与RC环境返回数据不一致`)
@@ -47,6 +48,7 @@ Promise.all(promiseList).then(() => {
 				fs.appendFileSync(filePath, `${content}\n`) // 换行写入每段内容
 			})
 			noPassAPI += 1
+			noPassAPIList.push(url)
 		} else {
 			// printLog.info(`${getTime()} ${url} 请求测试通过`)
 			passAPI += 1
@@ -60,5 +62,8 @@ Promise.all(promiseList).then(() => {
 	}
 	if (noPassAPI) {
 		printLog.error(`本次测试未通过 ${noPassAPI} 个API`)
+	}
+	if (noPassAPIList.length) {
+		noPassAPIList.forEach((urltext, index) => printLog.warn(`\r ${index + 1}. url: ${urltext}`))
 	}
 })
