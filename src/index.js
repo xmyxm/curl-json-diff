@@ -8,8 +8,9 @@ const fetchCURL = require('./util/fetchCURL')
 const clearDirectory = require('./util/clearDirectory')
 const readFileInfoList = require('./util/readFileInfoList')
 
+const curlfilepath = '../curlfile/API20250211/'
 // 指定目录路径
-const directoryPath = path.join(__dirname, '../webfile/API20241016/')
+const directoryPath = path.join(__dirname, curlfilepath + 'curllist/')
 const fileInfoList = readFileInfoList(directoryPath)
 const promiseList = []
 fileInfoList.forEach(item => {
@@ -32,7 +33,7 @@ fileInfoList.forEach(item => {
 })
 
 Promise.all(promiseList).then(() => {
-	const scanPath = path.join(__dirname, '../scandata')
+	const scanPath = path.join(__dirname, curlfilepath + 'scandata/')
 	// 同步清空文件夹
 	clearDirectory(scanPath)
 	let passAPI = 0
