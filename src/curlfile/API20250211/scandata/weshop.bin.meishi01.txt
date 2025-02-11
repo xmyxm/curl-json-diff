@@ -1,5 +1,0 @@
-https://mapi.dianping.com/mapi/wechat/weshop.bin
-PRO:
-undefined
-RC:
-{"chainTag":"","cityAreaCode":"","overallViewUrl":"","hasMultiPic":"","cityId":"","shopPowerRate":"","facilityExtra":"","rank":"","hasMOPay":"","id":"","lat":"","picCountStr":"","infraList":"","lng":"","shopStatusDetail":"","taxi":"","shopStyle":"","hotelBooking":"","shopExtraInfo":"","logined":"","route":"","phoneNos":"","deals":"","name":"","shopUuid":"","scoreText":"","shopType":"","branchIds":"","bookingMode":"","status":"","bookable":"","isForeignShop":"","hasTakeaway":"","shopPowerUrl":"","avgPrice":"","regionName":"","shopServiceInfoDoList":"","crossRoad":"","geoPoint":"","categoryName":"","bizStatusTime":"","phoneNo":"","fantuanEntrance":"","dishTags":"","branchInfo":"","advancedPics":"","shopServeInfoUrl":"","voteTotal":"","videoCountStr":"","isRateFromDP":"","altName":"","priceText":"","branchCounts":"","HasPromo":"","picCount":"","address":"","shopPower":"","branchName":"","nearbyTransport":"","hasDeals":"","scoreTextList":"","takeOrder":"","shopTag":"","regionId":"","defaultPic":"","categoryId":""}
