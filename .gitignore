@@ -1,5 +1,7 @@
 node_modules/
 yarn-error.log
 dist/
-src/webfile
-src/scandata/
+curlfile/API20250210/curllist/*
+curlfile/API20250211/curllist/*
+curlfile/API20250210/scandata/*
+curlfile/API20250211/scandata/*

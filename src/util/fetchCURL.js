@@ -13,7 +13,7 @@ function fetchCURL(method, url, headers, body) {
 			return response.data
 		})
 		.catch(error => {
-			console.error(`请求${url}失败:`, error)
+			console.error(`请求${url}失败:`, error.message)
 		})
 }
 
